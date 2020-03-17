@@ -1,0 +1,55 @@
+header div {
+    display: inline-block;
+}
+#top-logo {
+    border: black 1px solid;
+    width: 100px;
+}
+
+h1 {
+    border: black 1px solid;
+    width: 130px;
+}
+
+#votes {
+
+    border: black 1px solid;
+    width: 100px;
+    display: inline-block;
+    height: 320px;
+    vertical-align: top;
+    /* text-align: center; */
+}
+
+#middle {
+    border: black 1px solid;
+    display: inline-block;
+    
+    
+
+}
+
+#pics div {
+    width: 32%;
+    display: inline-block;
+}
+
+#pics {
+    border: black 1px solid;
+   
+}
+
+#pics img {
+    height: 140px;
+    
+}
+
+#blurb {
+    border: black 1px solid;
+    width: 600px;
+}
+
+footer {
+    border: black 1px solid;
+    text-align: center;
+}
