@@ -1,32 +1,52 @@
+header {
+    background-color: coral;
+    width: 909px;
+    height: 75px;
+}
 header div {
     display: inline-block;
+    background-color: coral;
 }
 #top-logo {
-    border: black 1px solid;
+    /* border: black 1px solid; */
     width: 100px;
+    height: 75px;
+}
+
+#bus {
+    height: 75px;
+    width: 100px;
+    background-color: coral;
 }
 
 h1 {
-    border: black 1px solid;
-    width: 130px;
+    /* border: black 1px solid; */
+    width: 180px;
+    /* height: 75px; */
+    font-size: 40px;
+    font-family: fantasy;
+    font-style: italic;
+    
 }
 
-#votes {
+#voteBox {
 
     border: black 1px solid;
-    width: 100px;
+    width: 300px;
     display: inline-block;
-    height: 320px;
+    height: 620px;
     vertical-align: top;
+    background-color: chartreuse;
     /* text-align: center; */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 15px;
 }
 
 #middle {
     border: black 1px solid;
     display: inline-block;
-    
-    
-
+    width: 610;
+    height: 620;
 }
 
 #pics div {
@@ -41,15 +61,23 @@ h1 {
 
 #pics img {
     height: 140px;
-    
+
 }
 
 #blurb {
     border: black 1px solid;
     width: 600px;
+    height: 475px;
+    font-size: 25px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-style: italic;
+    background-color: rgb(115, 181, 243);
 }
 
 footer {
     border: black 1px solid;
     text-align: center;
+    height: 100px;
+    width: 909px;
+    
 }
