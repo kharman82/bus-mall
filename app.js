@@ -15,7 +15,6 @@ function busMallImg (picName, imagePath) {
 var canvas = document.getElementById('myChart');
 var ctx = canvas.getContext('2d');
 
-var myData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
 
 var myChart = new Chart(ctx, {
     type: 'bar',
@@ -23,7 +22,7 @@ var myChart = new Chart(ctx, {
         labels: [],
         datasets: [{
             label: '# of Votes',
-            data: myData,
+            data: [],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -73,8 +72,11 @@ var myChart = new Chart(ctx, {
 });
 
 function chartInfo() {
-    for (var i = 0; i < merchPic.length; i++);
+    for (var i = 0; i < merchPic.length; i++) {
+    myChart.data.labels.push(merchPic[i].picName);
+    myChart.data.datasets[0].data.push(merchPic[i].numClicked);
 }
+};
 
 new busMallImg('bag', 'assets/bag.jpg');
 new busMallImg('banana', 'assets/banana.jpg');
@@ -100,7 +102,7 @@ new busMallImg('wine-glass', 'assets/wine-glass.jpg');
 var img1 = document.getElementById('source1');
 var img2 = document.getElementById('source2');
 var img3 = document.getElementById('source3');
-console.log(merchPic)
+// console.log(merchPic)
 
 function generateRandomImages() {
     var index = Math.floor(Math.random() * merchPic.length);
@@ -117,7 +119,7 @@ function generateRandomImages() {
 }
 
 function renderImg() {
-    console.log(img1.src);
+    // console.log(img1.src);
     // console.log(index);
 
 
@@ -153,8 +155,8 @@ function renderResults() {
 
 
 function clickHandler(event) {
-    // console.log(event.target.name);
     voteRounds++;
+    console.log(voteRounds);
     
     var listEl = document.getElementById("votes")
     listEl.innerHTML = '';
@@ -170,6 +172,8 @@ function clickHandler(event) {
             img1.removeEventListener('click', clickHandler);
             img2.removeEventListener('click', clickHandler);
             img3.removeEventListener('click', clickHandler);
+            chartInfo();
+            myChart.update();
             break;
         }
     }
