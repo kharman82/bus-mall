@@ -9,7 +9,85 @@ function busMallImg (picName, imagePath) {
     this.numClicked = 0;
     this.timesRendered = 0;
     merchPic.push(this);
+    
 }
+
+var canvas = document.getElementById('myChart');
+var ctx = canvas.getContext('2d');
+
+
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [],
+        datasets: [{
+            label: '# of Votes',
+            data: [],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+function chartInfo() {
+    for (var i = 0; i < merchPic.length; i++) {
+    myChart.data.labels.push(merchPic[i].picName);
+    myChart.data.datasets[0].data.push(merchPic[i].numClicked);
+}
+localStorage.setItem("merchPic", JSON.stringify(merchPic));
+};
+console.log(chartInfo);
+
+function takeOutData() {
+    for (var i = 0; i < merchPic.length; i++) {
+        myChart.data.labels.push(merchPic[i].picName);
+        myChart.data.datasets[0].data.push(merchPic[i].numClicked);    
+    }
+    merchPic = JSON.parse(localStorage.merchPic);
+};
+console.log(takeOutData);
 
 new busMallImg('bag', 'assets/bag.jpg');
 new busMallImg('banana', 'assets/banana.jpg');
@@ -35,7 +113,7 @@ new busMallImg('wine-glass', 'assets/wine-glass.jpg');
 var img1 = document.getElementById('source1');
 var img2 = document.getElementById('source2');
 var img3 = document.getElementById('source3');
-console.log(merchPic)
+// console.log(merchPic)
 
 function generateRandomImages() {
     var index = Math.floor(Math.random() * merchPic.length);
@@ -52,7 +130,7 @@ function generateRandomImages() {
 }
 
 function renderImg() {
-    console.log(img1.src);
+    // console.log(img1.src);
     // console.log(index);
 
 
@@ -88,14 +166,13 @@ function renderResults() {
 
 
 function clickHandler(event) {
-    // console.log(event.target.name);
     voteRounds++;
+    console.log(voteRounds);
     
     var listEl = document.getElementById("votes")
     listEl.innerHTML = '';
-    
+if (!localStorage.merchPic) {
     for (var i = 0; i < merchPic.length; i++) {
-        // console.log(merchPic[i].picName)
         if (merchPic[i].picName === event.target.picName) {
             merchPic[i].numClicked++;
             renderImg();
@@ -105,16 +182,25 @@ function clickHandler(event) {
             img1.removeEventListener('click', clickHandler);
             img2.removeEventListener('click', clickHandler);
             img3.removeEventListener('click', clickHandler);
+            chartInfo();
+            myChart.update();
             break;
         }
     }
-};
-
+}
+        else {
+            event = false;
+            renderResults();
+            img1.removeEventListener('click', clickHandler);
+            img2.removeEventListener('click', clickHandler);
+            img3.removeEventListener('click', clickHandler);
+            chartInfo();
+            takeOutData();
+            myChart.update();
+        };
+}
     
-        
-
-
-
 img1.addEventListener('click', clickHandler);
 img2.addEventListener('click', clickHandler);
 img3.addEventListener('click', clickHandler);
+
