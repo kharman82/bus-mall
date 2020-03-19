@@ -76,7 +76,18 @@ function chartInfo() {
     myChart.data.labels.push(merchPic[i].picName);
     myChart.data.datasets[0].data.push(merchPic[i].numClicked);
 }
+localStorage.setItem("merchPic", JSON.stringify(merchPic));
 };
+console.log(chartInfo);
+
+function takeOutData() {
+    for (var i = 0; i < merchPic.length; i++) {
+        myChart.data.labels.push(merchPic[i].picName);
+        myChart.data.datasets[0].data.push(merchPic[i].numClicked);    
+    }
+    merchPic = JSON.parse(localStorage.merchPic);
+};
+console.log(takeOutData);
 
 new busMallImg('bag', 'assets/bag.jpg');
 new busMallImg('banana', 'assets/banana.jpg');
@@ -160,9 +171,8 @@ function clickHandler(event) {
     
     var listEl = document.getElementById("votes")
     listEl.innerHTML = '';
-    
+if (!localStorage.merchPic) {
     for (var i = 0; i < merchPic.length; i++) {
-        // console.log(merchPic[i].picName)
         if (merchPic[i].picName === event.target.picName) {
             merchPic[i].numClicked++;
             renderImg();
@@ -177,13 +187,20 @@ function clickHandler(event) {
             break;
         }
     }
-};
-
+}
+        else {
+            event = false;
+            renderResults();
+            img1.removeEventListener('click', clickHandler);
+            img2.removeEventListener('click', clickHandler);
+            img3.removeEventListener('click', clickHandler);
+            chartInfo();
+            takeOutData();
+            myChart.update();
+        };
+}
     
-        
-
-
-
 img1.addEventListener('click', clickHandler);
 img2.addEventListener('click', clickHandler);
 img3.addEventListener('click', clickHandler);
+
